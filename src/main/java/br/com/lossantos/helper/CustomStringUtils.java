@@ -11,9 +11,12 @@ public class CustomStringUtils {
 	private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 
 	public static String slugify(String input) {
+		if (input == null)
+			return "";
+
 		String nowhitespace = WHITESPACE.matcher(input).replaceAll("-");
 		String normalized = Normalizer.normalize(nowhitespace, Form.NFD);
 		String slug = NONLATIN.matcher(normalized).replaceAll("");
-		return slug.toLowerCase(Locale.ENGLISH);
+		return slug.toLowerCase(Locale.ENGLISH).replaceAll("--+", "-");
 	}
 }
