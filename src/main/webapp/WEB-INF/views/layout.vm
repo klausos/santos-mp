@@ -1,5 +1,6 @@
 <html>
     <head>
+		<meta equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Spring MVC and Velocity</title>
     </head>
     <body>

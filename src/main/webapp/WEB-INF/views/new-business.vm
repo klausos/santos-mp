@@ -1,0 +1,21 @@
+<form action="/cadastro.html" method="post">
+	<p>
+    	Nome:
+    	<input type="text" name="title" value="Nutella - Serviços de buffet!">
+    </p>
+    <p>
+    	Endereço:
+    	<input type="text" name="address" value="Rua da Nutella, 789 - Vila dos Doces">
+    </p>
+    <p>
+    	Email:
+    	<input type="email" name="email" value="nutella@corp.nutella.inc">
+    </p>
+    <p>
+    	Telefone:
+    	<input type="text" name="phoneNumbers" value="11-3030-3030">
+    </p>
+	<p>
+        <button type="submit">ENVIAR ></button>
+	</p>
+</form>
