@@ -2,6 +2,6 @@
 
 #foreach($business in $businesses)
     <p>
-        <a href="negocio-${business.id}/${business.slug}.html">$business.title</a>
+        <a href="/negocio-${business.id}/${business.slug}.html">$business.title</a>
 	</p>
 #end
