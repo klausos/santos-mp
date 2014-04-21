@@ -1,0 +1,7 @@
+<h2>List of businesses</h2>
+
+#foreach($business in $businesses)
+    <p>
+        <a href="negocio-${business.id}/${business.slug}.html">$business.title</a>
+	</p>
+#end
