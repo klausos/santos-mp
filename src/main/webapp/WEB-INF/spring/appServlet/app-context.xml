@@ -5,7 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- setting maximum upload size - 2MB -->
+		<property name="maxUploadSize" value="2097152" />
+	</bean>
 
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
@@ -23,7 +26,8 @@
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/losantos" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/losantos?zeroDateTimeBehavior=convertToNull" />
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>

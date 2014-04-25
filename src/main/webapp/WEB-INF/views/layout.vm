@@ -5,6 +5,9 @@
     </head>
     <body>
         <h1>Spring MVC and Velocity</h1>
+		<p style="text-align: center">
+			<a href="/">home</a> - <a href="/cadastro.html">cadastro</a>
+		</p>
 
         $screen_content
 

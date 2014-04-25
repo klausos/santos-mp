@@ -1,7 +1,10 @@
 <form action="/cadastro.html" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 	<p>
     	Nome:
-    	<input type="text" name="title" value="Nutella - Serviços de buffet!">
+    	<input type="text" name="title" value="$!business.title">
+		#if( $validationResult.hasFieldErrors("title") )
+            <strong>Title ${validationResult.getFieldError("title").defaultMessage}.</strong>
+		#end
     </p>
     <p>
     	Endereço:
@@ -15,6 +18,10 @@
     	Telefone:
     	<input type="text" name="phoneNumbers" value="11-3030-3030">
     </p>
+	<p>
+		Imagem:
+		<input type="file" name="image">
+	</p>
 	<p>
         <button type="submit">ENVIAR ></button>
 	</p>
