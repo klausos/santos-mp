@@ -21,6 +21,10 @@
 	<p>
 		Imagem:
 		<input type="file" name="image">
+			
+		#if( $validationResult.hasFieldErrors("image") )
+            <strong>Imagem é obrigatória.</strong>
+		#end
 	</p>
 	<p>
         <button type="submit">ENVIAR ></button>
