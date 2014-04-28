@@ -1,13 +1,15 @@
 package br.com.lossantos.controller;
 
-import java.io.BufferedOutputStream;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.validation.Valid;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.filters.Canvas;
+import net.coobird.thumbnailator.geometry.Positions;
 import net.sf.jmimemagic.Magic;
 
 import org.slf4j.Logger;
@@ -59,6 +61,7 @@ public class NewBusinessController {
 		model.addAttribute("validationResult", result);
 
 		if (result.hasErrors() == false) {
+			business.setImagesCount(1);
 			logger.info("About to persist business object: {}", business);
 			businessDao.add(business);
 
@@ -68,7 +71,6 @@ public class NewBusinessController {
 		return "new-business";
 	}
 
-	// TODO add resizing code here: http://code.google.com/p/java-image-scaling/
 	private void validateUploadedImage(MultipartFile uploadedImage,
 			BindingResult result) {
 		if (uploadedImage.getSize() == 0) {
@@ -93,13 +95,16 @@ public class NewBusinessController {
 		uploadDir.mkdirs();
 
 		File targetFile = new File(uploadDir.getAbsolutePath() + File.separator
-				+ uploadedImage.getOriginalFilename());
+				+ "image1.jpg");
 
 		try {
-			BufferedOutputStream stream = new BufferedOutputStream(
-					new FileOutputStream(targetFile));
-			stream.write(uploadedImage.getBytes());
-			stream.close();
+			Thumbnails
+					.of(uploadedImage.getInputStream())
+					.size(640, 480)
+					.addFilter(
+							new Canvas(640, 480, Positions.CENTER, true,
+									Color.WHITE)).outputQuality(0.8)
+					.toFile(targetFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
