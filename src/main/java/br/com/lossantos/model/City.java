@@ -2,8 +2,11 @@ package br.com.lossantos.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -27,6 +30,10 @@ public class City {
 	@NotNull
 	private String slug;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "state_id", nullable = false)
+	private State state;
+
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +56,14 @@ public class City {
 
 	public void setSlug(String slug) {
 		this.slug = slug;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	@PrePersist

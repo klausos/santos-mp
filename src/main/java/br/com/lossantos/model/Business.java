@@ -50,6 +50,8 @@ public class Business {
 
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
+	
+	// TODO add mapping to city
 
 	public Long getId() {
 		return id;

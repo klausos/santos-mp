@@ -24,7 +24,6 @@ public class ViewBusinessController {
 	@RequestMapping(value = "/negocio-{id:[0-9]+}/{slug}.html", method = RequestMethod.GET)
 	public String home(@PathVariable Long id, @PathVariable String slug,
 			Model model) {
-
 		logger.info("Requesting business id {}...", id);
 
 		Business business = businessDao.findById(id);

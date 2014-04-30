@@ -8,6 +8,8 @@ public interface CityDao {
 
 	void add(City city);
 
+	City findFirst();
+
 	List<City> findAll();
 
 }

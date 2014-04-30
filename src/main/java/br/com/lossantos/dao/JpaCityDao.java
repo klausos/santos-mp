@@ -22,6 +22,12 @@ public class JpaCityDao implements CityDao {
 		em.merge(city);
 	}
 
+	@Override
+	public City findFirst() {
+		return (City) em.createQuery("SELECT c FROM City c ORDER BY id ASC")
+				.setMaxResults(1).getSingleResult();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<City> findAll() {

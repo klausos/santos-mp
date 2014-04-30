@@ -9,6 +9,8 @@
 		</description>
 		<provider>org.hibernate.ejb.HibernatePersistenceProvider</provider>
 		<class>br.com.lossantos.model.Business</class>
+		<class>br.com.lossantos.model.City</class>
+		<class>br.com.lossantos.model.State</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true" />
