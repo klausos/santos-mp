@@ -25,8 +25,8 @@ public class JpaBusinessDao implements BusinessDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Business> list() {
-		return em.createQuery("SELECT b FROM Business b ORDER BY id DESC LIMIT 10")
-				.getResultList();
+		return em.createQuery("SELECT b FROM Business b ORDER BY id DESC")
+				.setMaxResults(10).getResultList();
 	}
 
 	@Override

@@ -24,6 +24,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+		logger.info("Rendering home page");
 
 		List<Business> list = businessDao.list();
 		model.addAttribute("businesses", list);
