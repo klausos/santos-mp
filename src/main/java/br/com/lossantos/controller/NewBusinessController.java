@@ -114,6 +114,7 @@ public class NewBusinessController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.setAllowedFields("title", "address", "email", "phoneNumbers");
+		binder.setAllowedFields("title", "address", "email", "phoneNumbers",
+				"city");
 	}
 }

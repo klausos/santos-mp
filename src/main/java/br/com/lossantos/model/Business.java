@@ -5,8 +5,11 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -50,8 +53,10 @@ public class Business {
 
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
-	
-	// TODO add mapping to city
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "city_id", nullable = false)
+	private City city;
 
 	public Long getId() {
 		return id;
@@ -125,20 +130,12 @@ public class Business {
 		this.updatedAt = updatedAt;
 	}
 
-	@Override
-	public String toString() {
-		return "Business ["
-				+ (id != null ? "id=" + id + ", " : "")
-				+ (title != null ? "title=" + title + ", " : "")
-				+ (slug != null ? "slug=" + slug + ", " : "")
-				+ (address != null ? "address=" + address + ", " : "")
-				+ (email != null ? "email=" + email + ", " : "")
-				+ (phoneNumbers != null ? "phoneNumbers=" + phoneNumbers + ", "
-						: "")
-				+ (imagesCount != null ? "imagesCount=" + imagesCount + ", "
-						: "")
-				+ (createdAt != null ? "createdAt=" + createdAt + ", " : "")
-				+ (updatedAt != null ? "updatedAt=" + updatedAt : "") + "]";
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	@PrePersist
@@ -153,6 +150,23 @@ public class Business {
 		this.slug = CustomStringUtils.slugify(this.title);
 
 		this.updatedAt = new Timestamp(System.currentTimeMillis());
+	}
+
+	@Override
+	public String toString() {
+		return "Business ["
+				+ (id != null ? "id=" + id + ", " : "")
+				+ (title != null ? "title=" + title + ", " : "")
+				+ (slug != null ? "slug=" + slug + ", " : "")
+				+ (address != null ? "address=" + address + ", " : "")
+				+ (email != null ? "email=" + email + ", " : "")
+				+ (phoneNumbers != null ? "phoneNumbers=" + phoneNumbers + ", "
+						: "")
+				+ (imagesCount != null ? "imagesCount=" + imagesCount + ", "
+						: "")
+				+ (createdAt != null ? "createdAt=" + createdAt + ", " : "")
+				+ (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "")
+				+ (city != null ? "city=" + city : "") + "]";
 	}
 
 }

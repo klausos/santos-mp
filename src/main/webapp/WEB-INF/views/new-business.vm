@@ -6,6 +6,10 @@
             <strong>Title ${validationResult.getFieldError("title").defaultMessage}.</strong>
 		#end
     </p>
+	<p>
+		Cidade: São Paulo (make it dynamic now...)
+		<input type="hidden" name="city" value="5890">
+    </p>
     <p>
     	Endereço:
     	<input type="text" name="address" value="Rua da Nutella, 789 - Vila dos Doces">
