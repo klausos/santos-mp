@@ -7,8 +7,8 @@
 		#end
     </p>
 	<p>
-		Cidade: São Paulo (make it dynamic now...)
-		<input type="hidden" name="city" value="5890">
+		Cidade: <input type="text" id="city-autocomplete" name="cityText">
+		<input type="hidden" id="cityId" name="city" value="5890">
     </p>
     <p>
     	Endereço:
