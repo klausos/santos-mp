@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,10 @@ public class JpaBusinessDao implements BusinessDao {
 	}
 
 	@Override
+	@Transactional
 	public Business findById(Long id) {
-		return em.find(Business.class, id);
+		Business business = em.find(Business.class, id);
+		Hibernate.initialize(business.getServices());
+		return business;
 	}
 }

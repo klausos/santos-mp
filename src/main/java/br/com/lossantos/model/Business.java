@@ -1,8 +1,10 @@
 package br.com.lossantos.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.util.AutoPopulatingList;
 
 import br.com.lossantos.helper.CustomStringUtils;
 
@@ -57,6 +63,11 @@ public class Business {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "business", cascade = CascadeType.ALL)
+	@OrderBy("description ASC")
+	private List<Service> services = new AutoPopulatingList<Service>(
+			Service.class);
 
 	public Long getId() {
 		return id;
@@ -138,6 +149,14 @@ public class Business {
 		this.city = city;
 	}
 
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
 	@PrePersist
 	private void prePersist() {
 		this.createdAt = new Timestamp(System.currentTimeMillis());
@@ -166,7 +185,33 @@ public class Business {
 						: "")
 				+ (createdAt != null ? "createdAt=" + createdAt + ", " : "")
 				+ (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "")
-				+ (city != null ? "city=" + city : "") + "]";
+				+ (city != null ? "city=" + city + ", " : "")
+				+ (services != null ? "services=" + services : "") + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Business other = (Business) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

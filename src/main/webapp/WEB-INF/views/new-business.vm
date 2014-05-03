@@ -30,6 +30,34 @@
             <strong>Imagem é obrigatória.</strong>
 		#end
 	</p>
+	<fieldset>
+        <legend>Serviços prestados</legend>
+		#if( $business.services && $business.services.size() > 0 )
+			#foreach( $service in $business.services )
+        		<p>
+        			<input type="text" name="services[$velocityCount].description" placeholder="Descrição..." size="50" value="$!service.description">
+        			<input type="number" name="services[$velocityCount].quantity" placeholder="Quantidade" value="$!service.quantity">
+        			R$ <input type="number" name="services[$velocityCount].price" placeholder="Valor" step="0.01" min="0" value="$!service.price">
+        		<p>
+			#end
+		#else
+    		<p>
+    			<input type="text" name="services[0].description" placeholder="Descrição..." size="50">
+    			<input type="number" name="services[0].quantity" placeholder="Quantidade">
+    			R$ <input type="number" name="services[0].price" placeholder="Valor" step="0.01" min="0">
+    		<p>
+    		<p>
+    			<input type="text" name="services[1].description" placeholder="Descrição..." size="50">
+    			<input type="number" name="services[1].quantity" placeholder="Quantidade">
+    			R$ <input type="number" name="services[1].price" placeholder="Valor" step="0.01" min="0">
+    		<p>
+    		<p>
+    			<input type="text" name="services[2].description" placeholder="Descrição..." size="50">
+    			<input type="number" name="services[2].quantity" placeholder="Quantidade">
+    			R$ <input type="number" name="services[2].price" placeholder="Valor" step="0.01" min="0">
+    		<p>
+		#end
+    </fieldset>
 	<p>
         <button type="submit">ENVIAR ></button>
 	</p>

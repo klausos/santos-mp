@@ -11,6 +11,7 @@
 		<class>br.com.lossantos.model.Business</class>
 		<class>br.com.lossantos.model.City</class>
 		<class>br.com.lossantos.model.State</class>
+		<class>br.com.lossantos.model.Service</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true" />

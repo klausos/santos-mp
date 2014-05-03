@@ -1,7 +1,7 @@
 package br.com.lossantos.model;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,7 +30,8 @@ public class State {
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-	private Set<City> cities = new HashSet<City>();
+	@OrderBy("slug ASC")
+	private Set<City> cities = new TreeSet<City>();
 
 	public Long getId() {
 		return id;

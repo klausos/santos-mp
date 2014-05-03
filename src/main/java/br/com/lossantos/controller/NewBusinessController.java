@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.filters.Canvas;
@@ -30,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.lossantos.dao.BusinessDao;
 import br.com.lossantos.model.Business;
+import br.com.lossantos.model.Service;
 
 @Controller
 public class NewBusinessController {
@@ -39,6 +43,9 @@ public class NewBusinessController {
 
 	@Autowired
 	private BusinessDao businessDao;
+
+	@Autowired
+	private Validator validator;
 
 	@Value("${upload.path.businesses}")
 	private String uploadPath;
@@ -60,6 +67,8 @@ public class NewBusinessController {
 		model.addAttribute("business", business);
 		model.addAttribute("validationResult", result);
 
+		prepareServicesToDatabase(business);
+
 		if (result.hasErrors() == false) {
 			business.setImagesCount(1);
 			logger.info("About to persist business object: {}", business);
@@ -69,6 +78,17 @@ public class NewBusinessController {
 		}
 
 		return "new-business";
+	}
+
+	private void prepareServicesToDatabase(Business business) {
+		List<Service> validServices = new ArrayList<Service>();
+		for (Service service : business.getServices()) {
+			if (validator.validate(service).size() == 0) {
+				service.setBusiness(business);
+				validServices.add(service);
+			}
+		}
+		business.setServices(validServices);
 	}
 
 	private void validateUploadedImage(MultipartFile uploadedImage,
@@ -115,6 +135,6 @@ public class NewBusinessController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields("title", "address", "email", "phoneNumbers",
-				"city");
+				"city", "services*");
 	}
 }
